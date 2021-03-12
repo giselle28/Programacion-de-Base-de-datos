@@ -34,10 +34,17 @@ tiposervicio varchar(30)
 create table Productos
 (
 id int identity primary key,
-tipo varchar(20),
 marca varchar(30),
 precio decimal
 )
+
+create table Proveedor
+(
+  id int identity primary key,
+  nombre varchar(30)
+)
+
+
 
 create table Clientes_Redes
 (
@@ -53,11 +60,18 @@ create table Clientes_Redes
   id_Servicios int foreign key references Servicios (id)
  )
 
-  create table Servicios_Productos
+ create table Servicios_Productos
 (
   primary key (id_Servicios,id_Productos),
   id_Servicios int foreign key references Servicios(id), 
   id_Productos int foreign key references Productos (id)
+ )
+
+  create table Productos_Proveedor
+(
+  primary key (id_Productos,id_Proveedor),
+  id_Productos int foreign key references Productos(id), 
+  id_Proveedor int foreign key references Proveedor (id)
  )
 
 
