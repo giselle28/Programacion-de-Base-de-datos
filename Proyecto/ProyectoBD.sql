@@ -75,4 +75,26 @@ create table Clientes_Redes
  )
 
 
-
+ /*create table prueba
+(
+d_codigo int,
+d_asenta nvarchar(50),
+d_tipo_asenta varchar(50),
+D_mnpio nvarchar(50),
+d_estado nvarchar(50),
+d_ciudad nvarchar(50),
+d_CP int,
+c_estado int,
+c_oficina int,
+c_CP nvarchar(1),
+c_tipo_asenta int,
+c_mnpio int,
+id_asenta_cpcons nvarchar(50),
+d_zona nvarchar(50),
+c_cve_ciudad nvarchar(50)
+)
+*/
+select*from prueba_ where d_asenta='Tijuana'
+select*from Padron_S072_Edo_01
+alter table Padron_S072_Edo_01 drop column BIMESTRE
+alter table Padron_S072_Edo_01 drop column CVE_MUN
