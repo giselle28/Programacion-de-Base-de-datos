@@ -102,10 +102,6 @@ precio int
  select*from VWClientesDireccion
 
 
-
-
-
-
  --procedimiento 
 CREATE PROCEDURE ALTA_CLIENTE
 AS
