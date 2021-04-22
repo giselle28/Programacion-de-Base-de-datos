@@ -7,6 +7,9 @@ select*from tabla_clientes
 alter table tabla_clientes
 add Id int primary key identity (1,1)
 
+-/*ELIMINANDO ID CLIENTES
+ALTER TABLE tabla_clientes
+DROP COLUMN Id*/-
 --Agregamos campo de redes sociales
 alter table tabla_clientes
 add  Red_Social varchar(35)
@@ -24,6 +27,8 @@ select*from tabla_direccion
 alter table tabla_direccion
 add Id int primary key identity (1,1)
 
+-/*ALTER TABLE tabla_direccion
+DROP COLUMN Id*/-
 --Agregamos llave foranea de tabla_direcciones
 alter table tabla_direccion
 add CONSTRAINT fk_Id FOREIGN KEY (Id) REFERENCES tabla_clientes (Id) 
@@ -96,4 +101,16 @@ precio int
 
  select*from VWClientesDireccion
 
+
+
+
+
+
+ --procedimiento 
+CREATE PROCEDURE ALTA_CLIENTE
+AS
+SELECT*FROM tabla_clientes
+
+
+EXEC ALTA_CLIENTE
 
