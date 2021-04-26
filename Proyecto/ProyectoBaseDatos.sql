@@ -110,3 +110,38 @@ SELECT*FROM tabla_clientes
 
 EXEC ALTA_CLIENTE
 
+
+select*from tabla_direccion
+
+----CURSORES
+----------IF---------------------
+declare @course_id int=4
+
+if(@course_id = 4)
+select*from tabla_direccion where Id = 4
+else
+select*from tabla_direccion where Id != 4
+
+--------TRY CATCH
+DECLARE @i int  
+BEGIN  
+BEGIN TRY  
+SET @i = 2  
+SET @i = @i / 0  
+END TRY  
+BEGIN CATCH  
+SELECT ERROR_NUMBER() AS ErrorNumber  
+    , ERROR_MESSAGE() AS ErrorMessage  
+    , ERROR_LINE() AS ErrorLine;END CATCH  
+END;
+
+-------TRANSACTION
+BEGIN TRAN
+UPDATE tabla_clientes
+SET    Apellido_Materno = 'FRANCIS', 
+        Nombre_s = 'LUIS FELIPE'  WHERE Id=2
+SELECT * FROM tabla_clientes WHERE Id=2
+ROLLBACK TRAN 
+SELECT * FROM tabla_clientes WHERE Id=2
+
+
