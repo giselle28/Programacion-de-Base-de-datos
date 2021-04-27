@@ -114,6 +114,25 @@ EXEC ALTA_CLIENTE
 select*from tabla_direccion
 
 ----CURSORES
+
+--Declaramos variables
+DECLARE @nombre varchar(15) , @apellidoP varchar(15)
+--Declaramos el Cursor
+DECLARE CursorEJ CURSOR FOR
+SELECT Apellido_Paterno , Nombre_s FROM tabla_clientes WHERE Apellido_Paterno = 'AGUIRRE' -- Consulta de los Datos
+
+OPEN CursorEj -- Abrimos el Cursor
+
+FETCH NEXT FROM CursorEj INTO @nombre, @apellidoP -- Leer la primera fila
+WHILE @@FETCH_STATUS = 0 BEGIN 
+PRINT @nombre + ' ' + @apellidoP -- Ejecutamos las operaciones
+FETCH NEXT FROM CursorEj INTO @nombre, @apellidoP -- Leer la fila siguiente
+
+END --Fin del while
+
+CLOSE CursorEj
+DEALLOCATE CursorEj
+
 ----------IF---------------------
 declare @course_id int=4
 
@@ -139,9 +158,11 @@ END;
 BEGIN TRAN
 UPDATE tabla_clientes
 SET    Apellido_Materno = 'FRANCIS', 
-        Nombre_s = 'LUIS FELIPE'  WHERE Id=2
+        Nombre_s = 'ALONSO'  WHERE Id=2
 SELECT * FROM tabla_clientes WHERE Id=2
 ROLLBACK TRAN 
 SELECT * FROM tabla_clientes WHERE Id=2
+
+
 
 
