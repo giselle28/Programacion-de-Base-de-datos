@@ -91,6 +91,8 @@ precio int
 )
 
 
+
+
 --Vistas
  CREATE VIEW VWClientesDireccion
  AS SELECT Apellido_Paterno, Nombre_s, telefono , Calle_y_Numero , Municipio_Ciudad , Estado
@@ -172,3 +174,33 @@ SELECT CAST(GETDATE()as VARCHAR(12))  as string_fecha
 SELECT LEN(CAST(GETDATE()as VARCHAR(12)))  as conta_carac
 --d) funcion que concatene el resultado obtenido de enciso C) con la leyenda " caracteres contiene"
 SELECT CONCAT(LEN(CAST(GETDATE() as VARCHAR(12))),' caracteres contiene')  as conta_carac
+
+
+
+CREATE FUNCTION Cliente_VIP (@cliente_id int)
+
+RETURNS TABLE
+AS
+RETURN
+( 
+
+  select MAX(id_Clientes) from Clientes_Servicios 
+  select id_Clientes, count () 
+)
+
+CREATE FUNCTION Sales.ufn_SalesByStore (@storeid int)
+RETURNS TABLE
+AS
+RETURN
+(
+    SELECT P.ProductID, P.Name, SUM(SD.LineTotal) AS 'Total'
+    FROM Production.Product AS P
+    JOIN Sales.SalesOrderDetail AS SD ON SD.ProductID = P.ProductID
+    JOIN Sales.SalesOrderHeader AS SH ON SH.SalesOrderID = SD.SalesOrderID
+    JOIN Sales.Customer AS C ON SH.CustomerID = C.CustomerID
+    WHERE C.StoreID = @storeid
+    GROUP BY P.ProductID, P.Name
+);
+GO
+
+
