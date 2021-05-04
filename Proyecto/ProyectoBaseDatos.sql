@@ -176,31 +176,17 @@ SELECT LEN(CAST(GETDATE()as VARCHAR(12)))  as conta_carac
 SELECT CONCAT(LEN(CAST(GETDATE() as VARCHAR(12))),' caracteres contiene')  as conta_carac
 
 
-
-CREATE FUNCTION Cliente_VIP (@cliente_id int)
-
-RETURNS TABLE
+--funciones de usuario programación en base de datos en sql server
+CREATE FUNCTION BuscarNombreClte (@nombre varchar(15))
+RETURNS  TABLE
 AS
 RETURN
 ( 
-
-  select MAX(id_Clientes) from Clientes_Servicios 
-  select id_Clientes, count () 
-)
-
-CREATE FUNCTION Sales.ufn_SalesByStore (@storeid int)
-RETURNS TABLE
-AS
-RETURN
-(
-    SELECT P.ProductID, P.Name, SUM(SD.LineTotal) AS 'Total'
-    FROM Production.Product AS P
-    JOIN Sales.SalesOrderDetail AS SD ON SD.ProductID = P.ProductID
-    JOIN Sales.SalesOrderHeader AS SH ON SH.SalesOrderID = SD.SalesOrderID
-    JOIN Sales.Customer AS C ON SH.CustomerID = C.CustomerID
-    WHERE C.StoreID = @storeid
-    GROUP BY P.ProductID, P.Name
+  select telefono, Apellido_Paterno, Apellido_Materno from tabla_clientes where Nombre_s = @nombre
 );
 GO
 
+select*from BuscarNombreClte ('MARIA LUCINDA')
+select*from BuscarNombreClte ('ARTURO')
+select*from BuscarNombreClte ('LUIS')
 
