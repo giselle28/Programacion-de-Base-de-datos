@@ -18,3 +18,5 @@ insert into Productos(nombre,descripcion,precio)values('Arbol ficus','','500'),(
 
 
 insert into Productos_Proveedores (id_Productos,id_Proveedor) values (1,2),(2,3),(3,2),(3,4)
+select*from Productos_Proveedores
+select * from tabla_clientes
