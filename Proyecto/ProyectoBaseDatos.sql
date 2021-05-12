@@ -181,7 +181,7 @@ SELECT CONCAT(LEN(CAST(GETDATE() as VARCHAR(12))),' caracteres contiene')  as co
 CREATE FUNCTION BuscarNombreClte (@nombre varchar(15))
 
 =======
---funciones de usuario programación en base de datos en sql server
+--funciones de usuario programaciÃ³n en base de datos en sql server
 CREATE FUNCTION BuscarNombreClte (@nombre varchar(15))
 >>>>>>> a4ad040ee18d33648b1b48ccc9e5d6a692f2b590
 RETURNS  TABLE
