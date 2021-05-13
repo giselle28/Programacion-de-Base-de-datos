@@ -176,14 +176,13 @@ SELECT LEN(CAST(GETDATE()as VARCHAR(12)))  as conta_carac
 SELECT CONCAT(LEN(CAST(GETDATE() as VARCHAR(12))),' caracteres contiene')  as conta_carac
 
 
-<<<<<<< HEAD
 
 CREATE FUNCTION BuscarNombreClte (@nombre varchar(15))
 
-=======
+
 --funciones de usuario programación en base de datos en sql server
 CREATE FUNCTION BuscarNombreClte (@nombre varchar(15))
->>>>>>> a4ad040ee18d33648b1b48ccc9e5d6a692f2b590
+
 RETURNS  TABLE
 AS
 RETURN
@@ -191,7 +190,7 @@ RETURN
   select telefono, Apellido_Paterno, Apellido_Materno from tabla_clientes where Nombre_s = @nombre
 );
 GO
-<<<<<<< HEAD
+
 
 
 select*from  BuscarNombreclte ('JOSE')
@@ -214,25 +213,32 @@ CREATE TRIGGER Eliminar_Cliente
 on tabla_clientes for DELETE 
 as 
 BEGIN
+
 INSERT INTO HistorialClteEliminado (fecha,accion,usuario)
 values (GETDATE(),'Se elimino cliente', USER)
+
+DELETE FROM tabla_clientes WHERE tabla_clientes.Id = (SELECT Id FROM deleted)
+
+
 END
 
 
 
 CREATE TRIGGER Eliminar_registros_Clientes ON tabla_clientes
-BEFORE OF DELETE 
+FOR DELETE 
 AS 
 BEGIN 
   DELETE FROM tabla_direccion WHERE tabla_direccion.Id= (SELECT Id FROM deleted)
   DELETE FROM Clientes_Servicios WHERE Clientes_Servicios.id_Clientes= (SELECT Id FROM deleted)
+
 END
 
 
-DELETE from tabla_clientes where Id = 3
+DELETE from tabla_clientes where Id = 113
 drop trigger Eliminar_registros_Clientes
+drop trigger Eliminar_Cliente
 
 select*from HistorialClteEliminado
-select*from tabla_direccion where Id = 3
-select*from Clientes_Servicios where id_Clientes = 3
-select*from tabla_clientes where Id = 3
+select*from tabla_direccion where Id = 113
+select*from Clientes_Servicios where id_Clientes = 113
+select*from tabla_clientes where Id = 113
