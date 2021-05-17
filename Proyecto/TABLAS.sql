@@ -1,3 +1,5 @@
+-------TABLAS------
+
 CREATE DATABASE ProyectoBaseDatos
 use ProyectoBaseDatos
 
@@ -91,115 +93,6 @@ precio int
 )
 
 
-
-
---Vistas
- CREATE VIEW VWClientesDireccion
- AS SELECT Apellido_Paterno, Nombre_s, telefono , Calle_y_Numero , Municipio_Ciudad , Estado
- FROM tabla_clientes as E
- JOIN tabla_direccion as P 
- on E.Id = P.Id
- Go
-
- select*from VWClientesDireccion
-
-
- --procedimiento 
-CREATE PROCEDURE ALTA_CLIENTE
-AS
-SELECT*FROM tabla_clientes
-
-
-EXEC ALTA_CLIENTE
-
-
-select*from tabla_direccion
-
-----CURSORES
-
---Declaramos variables
-DECLARE @nombre varchar(15) , @apellidoP varchar(15)
---Declaramos el Cursor
-DECLARE CursorEJ CURSOR FOR
-SELECT Apellido_Paterno , Nombre_s FROM tabla_clientes WHERE Apellido_Paterno = 'AGUIRRE' -- Consulta de los Datos
-
-OPEN CursorEj -- Abrimos el Cursor
-
-FETCH NEXT FROM CursorEj INTO @nombre, @apellidoP -- Leer la primera fila
-WHILE @@FETCH_STATUS = 0 BEGIN 
-PRINT @nombre + ' ' + @apellidoP -- Ejecutamos las operaciones
-FETCH NEXT FROM CursorEj INTO @nombre, @apellidoP -- Leer la fila siguiente
-
-END --Fin del while
-
-CLOSE CursorEj
-DEALLOCATE CursorEj
-
-----------IF---------------------
-declare @course_id int=4
-
-if(@course_id = 4)
-select*from tabla_direccion where Id = 4
-else
-select*from tabla_direccion where Id != 4
-
---------TRY CATCH
-DECLARE @i int  
-BEGIN  
-BEGIN TRY  
-SET @i = 2  
-SET @i = @i / 0  
-END TRY  
-BEGIN CATCH  
-SELECT ERROR_NUMBER() AS ErrorNumber  
-    , ERROR_MESSAGE() AS ErrorMessage  
-    , ERROR_LINE() AS ErrorLine;END CATCH  
-END;
-
--------TRANSACTION
-BEGIN TRAN
-UPDATE tabla_clientes
-SET    Apellido_Materno = 'FRANCIS', 
-        Nombre_s = 'ALONSO'  WHERE Id=2
-SELECT * FROM tabla_clientes WHERE Id=2
-ROLLBACK TRAN 
-SELECT * FROM tabla_clientes WHERE Id=2
-
--------------------FUNCIONES---------------------------------------------
---a) funcion que muestra solamente el numero del mes
-SELECT  MONTH(GETDATE())  as Num_Mes
---b) funcion que convierta GetDate() a tipo de dato string
-SELECT CAST(GETDATE()as VARCHAR(12))  as string_fecha
---c) funcion que cuente el numero de caracteres del resultado del enciso b) 
-SELECT LEN(CAST(GETDATE()as VARCHAR(12)))  as conta_carac
---d) funcion que concatene el resultado obtenido de enciso C) con la leyenda " caracteres contiene"
-SELECT CONCAT(LEN(CAST(GETDATE() as VARCHAR(12))),' caracteres contiene')  as conta_carac
-
-
-
-CREATE FUNCTION BuscarNombreClte (@nombre varchar(15))
-
-
---funciones de usuario programación en base de datos en sql server
-CREATE FUNCTION BuscarNombreClte (@nombre varchar(15))
-
-RETURNS  TABLE
-AS
-RETURN
-( 
-  select telefono, Apellido_Paterno, Apellido_Materno from tabla_clientes where Nombre_s = @nombre
-);
-GO
-
-
-
-select*from  BuscarNombreclte ('JOSE')
-
-
-
-
------------------------TRIGGER---------------------------
-
 --Tabla Historial
 Create table HistorialClteEliminado
 (
@@ -209,36 +102,5 @@ Create table HistorialClteEliminado
   usuario varchar(100)
 )
 
-CREATE TRIGGER Eliminar_Cliente
-on tabla_clientes for DELETE 
-as 
-BEGIN
-
-INSERT INTO HistorialClteEliminado (fecha,accion,usuario)
-values (GETDATE(),'Se elimino cliente', USER)
-
-DELETE FROM tabla_clientes WHERE tabla_clientes.Id = (SELECT Id FROM deleted)
 
 
-END
-
-
-
-CREATE TRIGGER Eliminar_registros_Clientes ON tabla_clientes
-FOR DELETE 
-AS 
-BEGIN 
-  DELETE FROM tabla_direccion WHERE tabla_direccion.Id= (SELECT Id FROM deleted)
-  DELETE FROM Clientes_Servicios WHERE Clientes_Servicios.id_Clientes= (SELECT Id FROM deleted)
-
-END
-
-
-DELETE from tabla_clientes where Id = 113
-drop trigger Eliminar_registros_Clientes
-drop trigger Eliminar_Cliente
-
-select*from HistorialClteEliminado
-select*from tabla_direccion where Id = 113
-select*from Clientes_Servicios where id_Clientes = 113
-select*from tabla_clientes where Id = 113
