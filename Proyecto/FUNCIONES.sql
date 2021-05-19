@@ -16,7 +16,7 @@ SELECT CONCAT(LEN(CAST(GETDATE() as VARCHAR(12))),' caracteres contiene')  as co
 CREATE FUNCTION BuscarNombreClte (@nombre varchar(15))
 
 
---funciones de usuario programación en base de datos en sql server
+--funciones de usuario programaciÃ³n en base de datos en sql server
 CREATE FUNCTION BuscarNombreClte (@nombre varchar(15))
 
 RETURNS  TABLE
@@ -30,3 +30,27 @@ GO
 
 
 select*from  BuscarNombreclte ('JOSE')
+
+create function BUSCARPRECIO (@precio int)
+
+ returns table
+ as
+ return (
+  select id, descripcion, precio
+  from tabla_servicios
+  where precio < @precio
+ );
+
+select*from  BUSCARBUSCARPRECIO ('350')
+
+create function BRHISTORIALCTEELIMINADO (@id int)
+
+ returns table
+ as
+ return (
+  select id,accion, usuario, fecha
+  from tabla_HistorialClteEliminado
+  where id = @id
+ );
+
+select*from BRHISTORIALCTEELIMINADO ('5')
